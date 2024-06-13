@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.poscodx</groupId>
+    <artifactId>jblog</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>jblog3</module>
+    </modules>
+
+    <properties>
+        <tomcat.deploy.url>http://192.168.0.195/manager/text</tomcat.deploy.url>
+    </properties>
+
+    <build>
+        <finalName>jblog</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url></url>
+                    <server>tomcat-poscodx</server>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog">
+    <insert id="insert" parameterType="blogvo">
+        <![CDATA[
+        insert
+        into blog
+        values(#{id }, #{title }, #{logo })
+        ]]>
+    </insert>
+
+    <select id="findByBlogId" parameterType="string" resultType="blogvo">
+        <![CDATA[
+          select id, title, logo
+          from blog
+          where id = #{id }
+        ]]>
+    </select>
+
+    <select id="getPostList" parameterType="string" resultType="postvo">
+        <![CDATA[
+        select p.no as no, p.title, p.contents, p.reg_date as regDate, p.category_no as categoryNo
+        from post p, category c
+        where p.category_no = c.no
+          and c.id = #{id }
+        order by no desc;
+        ]]>
+    </select>
+
+    <select id="getPostById" resultType="map" parameterType="map">
+                <![CDATA[
+        select no, title, contents,
+               reg_date as regDate,
+               category_no as categoryNo
+        from post
+        where (category_no in (select no from category where id = #{id }))
+          and category_no = #{categoryNo }
+        order by no desc;
+        ]]>
+    </select>
+
+    <select id="getPost" resultType="map" parameterType="map">
+        <![CDATA[
+        select no, title, contents,
+               reg_date as regDate,
+               category_no as categoryNo
+        from post
+        where (category_no in (select no from category where id = #{id }))
+        limit 0, 1
+        ]]>
+    </select>
+
+    <select id="getCurrentPost" resultType="map" parameterType="map">
+        <![CDATA[
+        select no, title, contents,
+               reg_date as regDate,
+               category_no as categoryNo
+        from post
+        where (category_no in (select no from category where id = #{id }))
+          and category_no = #{categoryNo }
+          and no = #{postNo }
+        ]]>
+    </select>
+
+    <select id="getTopCategoryPost" resultType="map" parameterType="map">
+        <![CDATA[
+        select no, title, contents,
+               reg_date as regDate,
+               category_no as categoryNo
+        from post
+        where (category_no in (select no from category where id = #{id }))
+          and category_no = #{categoryNo }
+          limit 0, 1
+        ]]>
+    </select>
+
+    <update id="modifyBlog" parameterType="blogvo">
+        <choose>
+            <when test="logo == null">
+                <![CDATA[
+				update blog
+				set title = #{title}
+				where id = #{id}
+			]]>
+            </when>
+            <when test="title == null">
+                <![CDATA[
+				update blog
+				set logo = #{logo}
+				where id = #{id}
+			]]>
+            </when>
+            <otherwise>
+                <![CDATA[
+				update blog
+				set title = #{title}, logo = #{logo}
+				where id = #{id}
+			]]>
+            </otherwise>
+        </choose>
+    </update>
+
+    <insert id="insertPost" parameterType="postvo">
+        <![CDATA[
+          insert
+          into post
+          values (null, #{title}, #{contents}, now(), #{categoryNo})
+        ]]>
+    </insert>
+</mapper>

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableAspectJAutoProxy // auto proxy
 @EnableTransactionManagement // Transaction AOP Proxy
-@ComponentScan({"com.poscodx.jblog.service", "com.poscodx.jblog.repository"})
+@ComponentScan({"com.poscodx.jblog.service", "com.poscodx.jblog.repository", "com.poscodx.jblog.aspect"})
 @Import({DBConfig.class, MyBatisConfig.class})
 public class AppConfig {
 }

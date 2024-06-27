@@ -24,7 +24,7 @@
         from post p, category c
         where p.category_no = c.no
           and c.id = #{id }
-        order by no desc;
+        order by no desc
         ]]>
     </select>
 
@@ -36,7 +36,7 @@
         from post
         where (category_no in (select no from category where id = #{id }))
           and category_no = #{categoryNo }
-        order by no desc;
+        order by no desc
         ]]>
     </select>
 
@@ -47,6 +47,7 @@
                category_no as categoryNo
         from post
         where (category_no in (select no from category where id = #{id }))
+        order by no desc
         limit 0, 1
         ]]>
     </select>

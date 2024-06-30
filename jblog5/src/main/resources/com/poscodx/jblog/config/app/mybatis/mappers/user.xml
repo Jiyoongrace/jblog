@@ -10,12 +10,20 @@
         ]]>
 	</select>
 
+	<select id="findById2" parameterType="string" resultType="userdetails">
+		<![CDATA[
+		select id, name, password
+		from user
+		where id = #{id }
+		]]>
+	</select>
+
 	<select id="findByIdAndPassword" parameterType="map" resultType="uservo">
 		<![CDATA[
 		select id, name
 		from user
 		where id = #{id }
-		and password = password(#{password })
+		and password = #{password }
 		]]>
 	</select>
 
@@ -23,7 +31,7 @@
 		<![CDATA[
 		  insert
 		  into user
-		  values (#{id }, #{name }, password(#{password }), current_date())
+		  values (#{id }, #{name }, #{password }, current_date())
 		]]>
 	</insert>
 

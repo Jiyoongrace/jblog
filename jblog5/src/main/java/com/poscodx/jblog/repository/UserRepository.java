@@ -3,6 +3,7 @@ package com.poscodx.jblog.repository;
 import com.poscodx.jblog.vo.UserVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -22,5 +23,9 @@ public class UserRepository {
 
     public void insert(UserVo vo) {
         sqlSession.insert("user.insert", vo);
+    }
+
+    public UserDetails findById2(String username) {
+        return sqlSession.selectOne("user.findById2", username);
     }
 }

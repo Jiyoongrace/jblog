@@ -6,6 +6,7 @@ import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -18,6 +19,9 @@ public class UserService {
     @Autowired
     private BlogRepository blogRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserVo duplicateCheckId(String id) {
         return userRepository.findById(id);
     }
@@ -27,6 +31,7 @@ public class UserService {
     }
 
     public void join(@Valid UserVo userVo) {
+        userVo.setPassword(passwordEncoder.encode(userVo.getPassword()));
         userRepository.insert(userVo);
 
         BlogVo blogVo = new BlogVo();

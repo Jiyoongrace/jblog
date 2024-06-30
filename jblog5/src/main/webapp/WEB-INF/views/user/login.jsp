@@ -17,7 +17,7 @@
 			<input type="hidden" name="a" value="login" />
       		<label>아이디</label> <input type="text" name="id">
       		<label>패스워드</label> <input type="text" name="password">
-			<c:if test='${result == "fail" }'>
+			<c:if test='${param.result == "fail" }'>
 				<p>
 					로그인이 실패했습니다.
 				</p>

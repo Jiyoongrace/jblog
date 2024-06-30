@@ -1,7 +1,5 @@
 package com.poscodx.jblog.controller;
 
-import com.poscodx.jblog.security.Auth;
-import com.poscodx.jblog.security.AuthUser;
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.FileUploadService;
 import com.poscodx.jblog.vo.BlogVo;
@@ -9,6 +7,7 @@ import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.PostVo;
 import com.poscodx.jblog.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -96,10 +95,10 @@ public class BlogController {
 
 
 
-    @Auth
     @RequestMapping("/admin/basic")
-    public String adminBasic(HttpServletRequest req, @AuthUser UserVo authUser, @PathVariable("id") String id, Model model) {
+    public String adminBasic(Authentication authentication, @PathVariable("id") String id, Model model) {
 
+        UserVo authUser = (UserVo) authentication.getPrincipal();
         BlogVo vo = blogService.getBlogById(authUser.getId());
         if (vo == null || !(authUser.getId().equals(id))) {
             throw new IllegalArgumentException();
@@ -111,14 +110,14 @@ public class BlogController {
         return "blog/admin-basic";
     }
 
-    @Auth
     @PostMapping("/admin/basic/modify")
-    public String adminBasic(@AuthUser UserVo authUser,
+    public String adminBasic(Authentication authentication,
                              @PathVariable("id") String id,
                              @RequestParam("title") String title,
                              @RequestParam("file") MultipartFile file,
                              Model model) {
 
+        UserVo authUser = (UserVo) authentication.getPrincipal();
         BlogVo vo = blogService.getBlogById(authUser.getId());
         if (vo == null || !(authUser.getId().equals(id))) {
             throw new IllegalArgumentException();
@@ -154,12 +153,12 @@ public class BlogController {
         return "blog/admin-basic";
     }
 
-    @Auth
     @RequestMapping("/admin/category")
-    public String adminCategory(@AuthUser UserVo authUser,
+    public String adminCategory(Authentication authentication,
                                 @PathVariable("id") String id,
                                 Model model) {
 
+        UserVo authUser = (UserVo) authentication.getPrincipal();
         BlogVo vo = blogService.getBlogById(authUser.getId());
         if (vo == null || !(authUser.getId().equals(id))) {
             throw new IllegalArgumentException();
@@ -174,14 +173,14 @@ public class BlogController {
         return "blog/admin-category";
     }
 
-    @Auth
     @PostMapping("/admin/category/add")
-    public String adminCategoryAdd(@AuthUser UserVo authUser,
+    public String adminCategoryAdd(Authentication authentication,
                                    @PathVariable("id") String id,
                                    String name,
                                    String description,
                                    Model model) {
 
+        UserVo authUser = (UserVo) authentication.getPrincipal();
         BlogVo vo = blogService.getBlogById(authUser.getId());
         if (vo == null || !(authUser.getId().equals(id))) {
             throw new IllegalArgumentException();
@@ -197,12 +196,12 @@ public class BlogController {
         return "redirect:/" + authUser.getId() + "/admin/category";
     }
 
-    @Auth
     @RequestMapping("/admin/category/delete/{no}")
-    public String adminCategoryDelete(@AuthUser UserVo authUser,
+    public String adminCategoryDelete(Authentication authentication,
                                       @PathVariable("id") String id,
-                                      @PathVariable("no") Long no,
-                                      Model model) {
+                                      @PathVariable("no") Long no) {
+
+        UserVo authUser = (UserVo) authentication.getPrincipal();
         BlogVo vo = blogService.getBlogById(authUser.getId());
         if (vo == null || !(authUser.getId().equals(id))) {
             throw new IllegalArgumentException();
@@ -219,12 +218,12 @@ public class BlogController {
         return "redirect:/" + authUser.getId() + "/admin/category";
     }
 
-    @Auth
     @RequestMapping("/admin/write")
-    public String adminWrite(@AuthUser UserVo authUser,
+    public String adminWrite(Authentication authentication,
                              @PathVariable("id") String id,
                              Model model) {
 
+        UserVo authUser = (UserVo) authentication.getPrincipal();
         BlogVo vo = blogService.getBlogById(authUser.getId());
         if (vo == null || !(authUser.getId().equals(id))) {
             throw new IllegalArgumentException();
@@ -239,15 +238,15 @@ public class BlogController {
         return "blog/admin-write";
     }
 
-    @Auth
     @PostMapping("/admin/write")
-    public String adminWrite(@AuthUser UserVo authUser,
+    public String adminWrite(Authentication authentication,
                              @PathVariable("id") String id,
                              String title,
                              String contents,
                              Long category_no,
                              Model model) {
 
+        UserVo authUser = (UserVo) authentication.getPrincipal();
         BlogVo vo = blogService.getBlogById(authUser.getId());
         if (vo == null || !(authUser.getId().equals(id))) {
             throw new IllegalArgumentException();

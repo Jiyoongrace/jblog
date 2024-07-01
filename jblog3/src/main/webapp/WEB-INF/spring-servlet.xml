@@ -97,7 +97,7 @@
     </bean>
 
     <!-- mvc url-resource mapping -->
-    <mvc:resources mapping="/assets/logo-images/**" location="file:/jblog-uploads/" />
+    <mvc:resources mapping="/assets/upload-images/**" location="file:/Users/jiyoon/jblog-uploads/" />
 
     <context:annotation-config />
     <context:component-scan base-package="com.poscodx.jblog.controller, com.poscodx.jblog.exception" />

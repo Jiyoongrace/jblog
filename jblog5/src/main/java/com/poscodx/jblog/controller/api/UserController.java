@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/checkid")
     public Object checkId(@RequestParam(value = "id", required = true, defaultValue = "") String id) {
-        UserVo vo = userService.duplicateCheckId(id);
+        UserVo vo = userService.getUser(id);
 
         return Map.of("exist", vo != null);
     }

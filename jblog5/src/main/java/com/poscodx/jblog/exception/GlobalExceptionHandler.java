@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/json; charset=UTF-8");
             OutputStream os = response.getOutputStream();
-            os.write("{}".getBytes("utf-8"));
+            os.write(jsonString.getBytes("utf-8"));
             os.close();
         } else {
             // 4. 사과 페이지(정상 종료)

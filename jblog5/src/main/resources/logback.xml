@@ -10,14 +10,14 @@
     </appender>
 
     <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/jblog-logs/exception.log</file>
+        <file>/Users/jiyoon/jblog-logs/exception.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
                 %d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
             </Pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <FileNamePattern>/jblog-logs/exception.%i.log.zip</FileNamePattern>
+            <FileNamePattern>/Users/jiyoon/jblog-logs/exception.%i.log.zip</FileNamePattern>
             <MinIndex>1</MinIndex>
             <MaxIndex>10</MaxIndex>
         </rollingPolicy>
@@ -36,5 +36,4 @@
     <root level="info">
         <appender-ref ref="consoleAppender" />
     </root>
-
 </configuration>

@@ -42,18 +42,18 @@ public class UserController {
         return "user/joinsuccess";
     }
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String login() {
         return "user/login";
     }
 
-    @RequestMapping("/auth")
-    public void auth() {
-
-    }
-
-    @RequestMapping("/logout")
-    public void logout() {
-
-    }
+//    @RequestMapping("/auth")
+//    public void auth() {
+//
+//    }
+//
+//    @RequestMapping("/logout")
+//    public void logout() {
+//
+//    }
 }

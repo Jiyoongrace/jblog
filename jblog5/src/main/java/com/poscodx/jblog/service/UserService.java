@@ -47,4 +47,8 @@ public class UserService {
         categoryVo.setBlogId(userVo.getId());
         blogRepository.insertCategory(categoryVo);
     }
+
+    public UserVo getUser(String id) {
+        return userRepository.findByIdSC(id, UserVo.class);
+    }
 }
